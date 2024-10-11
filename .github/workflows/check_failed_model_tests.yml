@@ -87,7 +87,7 @@ jobs:
       - name: Checkout back
         working-directory: /transformers
         run: |
-          git checkout ${{ inputs.start_sha }} 
+          git checkout ${{ inputs.start_sha }}
 
       - name: Process report
         shell: bash
