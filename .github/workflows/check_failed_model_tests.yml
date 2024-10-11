@@ -84,10 +84,9 @@ jobs:
           ls -l new_model_failures_with_bad_commit.json
           cat new_model_failures_with_bad_commit.json
 
-      - name: Check 2
+      - name: Checkout back
         working-directory: /transformers
         run: |
-          git log -n 3
           git checkout ${{ inputs.start_sha }} 
 
       - name: Process report
