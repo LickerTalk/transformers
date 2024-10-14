@@ -49,7 +49,7 @@ if __name__ == "__main__":
         repo_type="dataset",
         token=os.environ.get("TRANSFORMERS_CI_RESULTS_UPLOAD_TOKEN", None),
     )
-    url = f"https://huggingface.co/datasets/hf-internal-testing/transformers_daily_ci/raw/{commit_info.oid}/{datetime.datetime.today().strftime('%Y-%m-%d')}/ci_results_run_models_gpu/new_model_failures.json"
+    url = f"https://huggingface.co/datasets/hf-internal-testing/transformers_daily_ci/raw/{commit_info.oid}/{datetime.datetime.today().strftime('%Y-%m-%d')}/ci_results_run_models_gpu/new_model_failures_with_bad_commit_grouped_by_authors.json"
 
     # Add `GH_` prefix as keyword mention
     output = {}
