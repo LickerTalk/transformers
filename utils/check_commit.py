@@ -160,6 +160,9 @@ if __name__ == "__main__":
     print(f"start_commit: {args.start_commit}")
     print(f"end_commit: {args.end_commit}")
 
+    print(args.test is None)
+    print(args.file is None)
+
     if len({args.test is None, args.file is None}) != 1:
         raise ValueError("Exactly one argument `test` or `file` must be specified.")
 
