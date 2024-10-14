@@ -24,6 +24,7 @@ import requests
 
 def create_script(target_test):
     """Create a python script to be run by `git bisect run` to determine if `target_test` passes or fails.
+    If a test is not found in a commit, the script with exit code `0` (i.e. `Success`).
 
     Args:
         target_test (`str`): The test to check.
