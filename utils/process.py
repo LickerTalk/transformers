@@ -1,4 +1,4 @@
-"""An internal script to process `new_model_failures_with_bad_commit.json` produced by `utils/check_commit.py`.
+"""An internal script to process `new_model_failures_with_bad_commit.json` produced by `utils/check_bad_commit.py`.
 
 This is used by `.github/workflows/check_failed_model_tests.yml` to produce a slack report of the following form
 
