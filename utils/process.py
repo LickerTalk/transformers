@@ -1,5 +1,6 @@
 import json
 from collections import Counter
+from copy import deepcopy
 
 
 with open("new_model_failures_with_bad_commit.json") as fp:
