@@ -33,7 +33,8 @@ for author, _data in new_data_full.items():
         for device, failed_tests in model_result.items():
             failed_tests = [x for x in failed_tests if x["author"] == author or x["merged_by"] == author]
             model_result[device] = failed_tests
-print(json.dumps(new_data_full, indent=4))
+# print(json.dumps(new_data_full, indent=4))
+
 
 # Add `GH_` prefix as keyword mention
 output = {}
