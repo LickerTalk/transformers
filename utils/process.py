@@ -22,7 +22,7 @@ for model, model_result in data.items():
 
             if author not in new_data:
                 new_data[author] = Counter()
-            new_data[author].update([model])
+            new_data[author].update([(model, device, failed_test["test"])])
 for author in new_data:
     new_data[author] = dict(new_data[author])
 
