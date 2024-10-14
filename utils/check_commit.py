@@ -176,7 +176,9 @@ if __name__ == "__main__":
 
         for model in reports:
             # TODO: make this script able to deal with both `single-gpu` and `multi-gpu` via a new argument.
+            reports[model].pop("multi-gpu", None)
             failed_tests = reports[model]["single-gpu"]
+
             failed_tests_with_bad_commits = []
             for test in failed_tests:
                 commit = find_bad_commit(target_test=test, start_commit=args.start_commit, end_commit=args.end_commit)
