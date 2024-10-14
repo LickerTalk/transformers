@@ -569,7 +569,7 @@ class Message:
                 "type": "section",
                 "text": {
                     "type": "plain_text",
-                    "text": "bonjour",
+                    "text": "",
                 },
                 "accessory": {
                     "type": "button",
