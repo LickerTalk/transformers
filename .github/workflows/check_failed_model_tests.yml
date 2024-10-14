@@ -97,7 +97,7 @@ jobs:
         env:
           TRANSFORMERS_CI_RESULTS_UPLOAD_TOKEN: ${{ secrets.TRANSFORMERS_CI_RESULTS_UPLOAD_TOKEN }}
         run: |
-          python3 utils/process.py
+          python3 utils/process_bad_commit_report.py
 
       - name: Process report
         shell: bash
@@ -107,7 +107,7 @@ jobs:
         run: |
           {
             echo 'REPORT_TEXT<<EOF'
-            python3 utils/process.py
+            python3 utils/process_bad_commit_report.py
             echo EOF
           } >> "$GITHUB_ENV"
 
