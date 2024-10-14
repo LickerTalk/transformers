@@ -172,6 +172,7 @@ if __name__ == "__main__":
             reports = json.load(fp)
 
         for model in reports:
+            # TODO: make this script able to deal with both `single-gpu` and `multi-gpu` via a new argument.
             failed_tests = reports[model]["single-gpu"]
             failed_tests_with_bad_commits = []
             for test in failed_tests:
