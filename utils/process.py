@@ -27,7 +27,7 @@ if __name__ == "__main__":
 
                 if author not in new_data:
                     new_data[author] = Counter()
-                new_data[author].update([(model, device, failed_test["test"])])
+                new_data[author].update([model])
     for author in new_data:
         new_data[author] = dict(new_data[author])
 
@@ -42,13 +42,14 @@ if __name__ == "__main__":
     # Upload to Hub and get the url
     with open("new_model_failures_with_bad_commit_grouped_by_authors.json", "w") as fp:
         json.dump(new_data_full, fp, ensure_ascii=False, indent=4)
-    api.upload_file(
+    commit_info = api.upload_file(
         path_or_fileobj=f"new_model_failures_with_bad_commit_grouped_by_authors.json",
         path_in_repo=f"{datetime.datetime.today().strftime('%Y-%m-%d')}/ci_results_run_models_gpu/new_model_failures_with_bad_commit_grouped_by_authors.json",
         repo_id="hf-internal-testing/transformers_daily_ci",
         repo_type="dataset",
         token=os.environ.get("TRANSFORMERS_CI_RESULTS_UPLOAD_TOKEN", None),
     )
+    url = f"https://huggingface.co/datasets/hf-internal-testing/transformers_daily_ci/raw/{commit_info.oid}/{datetime.datetime.today().strftime('%Y-%m-%d')}/ci_results_{job_name}/new_model_failures.json"
 
     # Add `GH_` prefix as keyword mention
     output = {}
