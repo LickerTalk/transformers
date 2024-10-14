@@ -44,7 +44,7 @@ if __name__ == "__main__":
         json.dump(new_data_full, fp, ensure_ascii=False, indent=4)
     api.upload_file(
         path_or_fileobj=f"new_model_failures_with_bad_commit_grouped_by_authors.json",
-        path_in_repo=f"{datetime.datetime.today().strftime('%Y-%m-%d')}/ci_results_models/new_model_failures_with_bad_commit_grouped_by_authors.json",
+        path_in_repo=f"{datetime.datetime.today().strftime('%Y-%m-%d')}/ci_results_run_models_gpu/new_model_failures_with_bad_commit_grouped_by_authors.json",
         repo_id="hf-internal-testing/transformers_daily_ci",
         repo_type="dataset",
         token=os.environ.get("TRANSFORMERS_CI_RESULTS_UPLOAD_TOKEN", None),
