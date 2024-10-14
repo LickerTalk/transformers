@@ -1,3 +1,19 @@
+#!/usr/bin/env python
+# coding=utf-8
+
+# Copyright 2024 The HuggingFace Inc. team. All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 import argparse
 import json
 import os
@@ -7,6 +23,14 @@ import requests
 
 
 def create_script(target_test):
+    """Create a python script to be run by `git bisect run` to determine if `target_test` passes or fails.
+
+    Args:
+        target_test (`str`): The test to check.
+
+    Returns:
+        `str`: The script to be run by `git bisect run`.
+    """
 
     script = f"""
 import os
@@ -38,6 +62,16 @@ exit(0)
 
 
 def find_bad_commit(target_test, start_commit, end_commit):
+    """Find (backward) the earliest commit between `start_commit` and `end_commit` at which `target_test` fails.
+
+    Args:
+        target_test (`str`): The test to check.
+        start_commit (`str`): The latest commit.
+        end_commit (`str`): The earliest commit.
+
+    Returns:
+        `str`: The earliest commit at which `target_test` fails.
+    """
 
     create_script(target_test=target_test)
 
@@ -88,6 +122,7 @@ git bisect run python3 target_script.py
 
 
 def get_commit_info(commit):
+    """Get information for a commit via `api.github.com`."""
     pr_number = None
     author = None
     merged_author = None
@@ -114,8 +149,8 @@ def get_commit_info(commit):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--start_commit", type=str, required=True, help="The starting commit hash.")
-    parser.add_argument("--end_commit", type=str, required=True, help="The ending commit hash.")
+    parser.add_argument("--start_commit", type=str, required=True, help="The latest commit hash to check.")
+    parser.add_argument("--end_commit", type=str, required=True, help="The earliest commit hash to check.")
     parser.add_argument("--test", type=str, help="The test to check.")
     parser.add_argument("--file", type=str, help="The report file.")
     parser.add_argument("--output_file", type=str, required=True, help="The path of the output file.")
@@ -124,7 +159,8 @@ if __name__ == "__main__":
     print(f"start_commit: {args.start_commit}")
     print(f"end_commit: {args.end_commit}")
 
-    assert len({args.file is None, args.file is None}) == 1
+    if len({args.test is None, args.file is None}) != 1:
+        raise ValueError("Exactly one argument `test` or `file` must be specified.")
 
     if args.test is not None:
         commit = find_bad_commit(target_test=args.test, start_commit=args.start_commit, end_commit=args.end_commit)
@@ -146,6 +182,3 @@ if __name__ == "__main__":
 
         with open(args.output_file, "w", encoding="UTF-8") as fp:
             json.dump(reports, fp, ensure_ascii=False, indent=4)
-
-    # python3 check_commit2.py --start_commit 54705c8a --end_commit 317e069e --file ci_results_run_models_gpu/new_model_failures.json --output_file new_model_failures_with_bad_commit.json
-    # python3 check_commit2.py --start_commit 54705c8a --end_commit 317e069e --test tests/models/vit/test_modeling_vit.py::ViTModelTest::test_foo --output_file new_model_failures_with_bad_commit.txt
