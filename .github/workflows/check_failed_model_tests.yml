@@ -80,7 +80,7 @@ jobs:
         working-directory: /transformers
         run: python3 utils/check_commit.py --start_commit ${{ inputs.start_sha }} --end_commit ${{ env.END_SHA }} --file ci_results_run_models_gpu/new_model_failures.json --output_file new_model_failures_with_bad_commit.json
 
-      - name: Check
+      - name: Show results
         working-directory: /transformers
         run: |
           ls -l new_model_failures_with_bad_commit.json
@@ -90,6 +90,12 @@ jobs:
         working-directory: /transformers
         run: |
           git checkout ${{ inputs.start_sha }}
+
+      - name: Process report
+        shell: bash
+        working-directory: /transformers
+        run: |
+          python3 utils/process.py
 
       - name: Process report
         shell: bash
