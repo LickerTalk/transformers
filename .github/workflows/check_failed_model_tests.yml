@@ -94,6 +94,8 @@ jobs:
       - name: Process report
         shell: bash
         working-directory: /transformers
+        env:
+          TRANSFORMERS_CI_RESULTS_UPLOAD_TOKEN: ${{ secrets.TRANSFORMERS_CI_RESULTS_UPLOAD_TOKEN }}
         run: |
           python3 utils/process.py
 
