@@ -57,6 +57,6 @@ if __name__ == "__main__":
         author = f"GH_{author}"
         output[author] = item
 
-    report = f"<{url}|New failed tests>\n\n"
+    report = f"<{url}|New failed tests>\\n\\n"
     report += json.dumps(output, indent=4).replace('"', '\\"').replace("\n", "\\n")
     print(report)
