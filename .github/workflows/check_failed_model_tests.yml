@@ -3,9 +3,6 @@ name: Process failed tests
 on:
   workflow_call:
     inputs:
-      machine_type:
-        required: true
-        type: string
       runner:
         required: true
         type: string
@@ -36,7 +33,7 @@ jobs:
   run_models_gpu:
     name: " "
     runs-on:
-      group: '${{ inputs.machine_type }}'
+      group: aws-g4dn-2xlarge-cache
     container:
       image: ${{ inputs.docker }}
       options: --gpus all --shm-size "16gb" --ipc host -v /mnt/cache/.cache/huggingface:/mnt/cache/
