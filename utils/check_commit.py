@@ -163,7 +163,7 @@ if __name__ == "__main__":
     print(args.test is None)
     print(args.file is None)
 
-    if len({args.test is None, args.file is None}) != 1:
+    if len({args.test is None, args.file is None}) != 2:
         raise ValueError("Exactly one argument `test` or `file` must be specified.")
 
     if args.test is not None:
