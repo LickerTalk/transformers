@@ -1,4 +1,4 @@
-name: model jobs
+name: Process failed tests
 
 on:
   workflow_call:
@@ -16,6 +16,7 @@ on:
         required: true
         type: string
 
+
 env:
   HF_HOME: /mnt/cache
   TRANSFORMERS_IS_CI: yes
@@ -29,6 +30,7 @@ env:
   TF_FORCE_GPU_ALLOW_GROWTH: true
   RUN_PT_TF_CROSS_TESTS: 1
   CUDA_VISIBLE_DEVICES: 0,1
+
 
 jobs:
   run_models_gpu:
